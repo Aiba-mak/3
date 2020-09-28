@@ -13,11 +13,38 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.contrib import admin
+# from django.urls import path, include
+# from tweetapp import views
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('tweetapp', include('tweetapp.urls')),
+#     path('account', include('account.urls')),
+# ]
+
+
+from django.conf import settings
+from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from tweetapp import views
+# from .yasg import urlpatterns as dic_url, schema_view
+from rest_framework.routers import DefaultRouter
+
+from tweetapp.views import PostViewSet, CommentViewSet
+from account.views import ProfileViewSet
+
+router = DefaultRouter()
+router.register('posts', PostViewSet)
+router.register('tweets', CommentViewSet)
+router.register('profile', ProfileViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tweetapp', include('tweetapp.urls')),
-]
+    path('v1/', include(router.urls)),
+    path('v1/account/', include('account.urls')),
+    path('v1/', include('tweetapp.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# urlpatterns += dic_url

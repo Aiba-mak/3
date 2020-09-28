@@ -7,7 +7,7 @@ from django_filters import rest_framework as filters
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
-from account.models import User
+# from account.models import User
 from .mixins import LikedMixin
 from .models import Post, Comment, Tag, Follow
 from .permissions import IsPostAuthor
