@@ -34,6 +34,14 @@ from rest_framework.routers import DefaultRouter
 
 from tweetapp.views import PostViewSet, CommentViewSet
 from account.views import ProfileViewSet
+# from rest_framework_swagger.views import get_swagger_view
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
+schema_view = get_schema_view(title='Blog API')
+
+# API_TITLE = 'Blog API'
+# API_DESCRIPTION = 'A Web API for creating and editing blog posts.'
+# schema_view = get_swagger_view(title=API_TITLE)
 
 router = DefaultRouter()
 router.register('posts', PostViewSet)
@@ -44,7 +52,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('v1/', include(router.urls)),
     path('v1/account/', include('account.urls')),
+    # path('swagger-docs/', schema_view),
     path('v1/', include('tweetapp.urls')),
+    path('docs/', include_docs_urls(title='Blog API')),
+    path('schema/', schema_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns += dic_url
