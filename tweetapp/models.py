@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.conf import settings
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
@@ -26,7 +27,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='posts', blank=True)
     tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
-    likes = GenericRelation(Like)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='likers')
+
 
     def __str__(self):
         return self.text
