@@ -44,8 +44,8 @@ schema_view = get_schema_view(title='Blog API')
 # schema_view = get_swagger_view(title=API_TITLE)
 
 router = DefaultRouter()
-router.register('posts', PostViewSet)
-router.register('tweets', CommentViewSet)
+router.register('tweets', PostViewSet)
+router.register('comment', CommentViewSet) #поменяли местами пост и твит, коммент
 router.register('profile', ProfileViewSet)
 
 urlpatterns = [
@@ -55,7 +55,7 @@ urlpatterns = [
     # path('swagger-docs/', schema_view),
     path('v1/', include('tweetapp.urls')),
     path('docs/', include_docs_urls(title='Blog API')),
-    path('schema/', schema_view),
+    # path('schema/', schema_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns += dic_url

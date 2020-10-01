@@ -17,10 +17,10 @@ class FollowSerializer(serializers.ModelSerializer):
         user_following = self.context['request'].user
 
         if Follow.objects.filter(user=user_follow, follower=user_following).exists():
-            message = 'Have already following'
+            message = 'You are already following'
             raise serializers.ValidationError(message)
         elif user_following.id == user_follow.id:
-            message = 'You cannot following yourself'
+            message = 'You can not follow yourself'
             raise serializers.ValidationError(message)
         else:
             follow = Follow.objects.create(
