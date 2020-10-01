@@ -78,8 +78,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ('text', 'image', 'created_at', 'id', 'tags', 'total_likes', 'is_fan')
 
     def get_is_fan(self, obj) -> bool:
-        """Проверяет, лайкнул ли `request.user` твит (`obj`).
-        """
+       
         user = self.context.get('request').user
         return likes_services.is_fan(obj, user)
 
@@ -109,4 +108,5 @@ class PostSerializer(serializers.ModelSerializer):
         representation['text'] = instance.text
         representation['author'] = instance.author.email
         representation['image'] = self.__get_image_url(instance)
+        representation['likes'] = instance.likes.all().count()
         return representation
