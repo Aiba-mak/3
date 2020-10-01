@@ -13,6 +13,8 @@ from .models import Post, Comment, Tag, Follow
 from .permissions import IsPostAuthor
 from .serializers import PostSerializer, CommentSerializer, TagSerializer, FollowSerializer
 
+class MyPaginations(PageNumberPagination):
+    page_size = 5
 
 class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
     pass

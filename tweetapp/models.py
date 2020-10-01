@@ -29,7 +29,6 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='likers')
 
-
     def __str__(self):
         return self.text
 
