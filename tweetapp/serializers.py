@@ -17,7 +17,9 @@ class FollowSerializer(serializers.ModelSerializer):
         user_following = self.context['request'].user
 
         if Follow.objects.filter(user=user_follow, follower=user_following).exists():
-            message = 'You are already following'
+            message = f'You are unfollowing {user_follow}'
+            obj = Follow.objects.filter(id=Follow.objects.get(user=user_follow, follower=user_following).id)
+            obj.delete()
             raise serializers.ValidationError(message)
         elif user_following.id == user_follow.id:
             message = 'You can not follow yourself'
@@ -27,8 +29,23 @@ class FollowSerializer(serializers.ModelSerializer):
                 user=user_follow,
                 follower=user_following
             )
+            message = f'You are following {user_follow}'
+            raise serializers.ValidationError(message)
             return follow
 
+        # if Follow.objects.create(user=user_follow, follower=user_following):
+            
+            
+        #     raise serializers.ValidationError(message)
+        # elif user_following.id == user_follow.id:
+        #     message = 'You can not follow yourself'
+        #     raise serializers.ValidationError(message)
+        # else:
+        #     follow = Follow.objects.create(
+        #         user=user_follow,
+        #         follower=user_following
+        #     )
+        #     return follow
 
 class FanSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField()
