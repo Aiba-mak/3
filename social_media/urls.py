@@ -21,5 +21,5 @@ urlpatterns = [
     path('v1/', include(router.urls)),
     path('v1/account/', include('account.urls')),
     path('v1/', include('tweetapp.urls')),
-    path('docs/', include_docs_urls(title='Blog API')),
+    path('', include_docs_urls(title='Blog API')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,7 +14,7 @@ from .permissions import IsPostAuthor
 from .serializers import PostSerializer, CommentSerializer, TagSerializer, FollowSerializer
 
 class MyPaginations(PageNumberPagination):
-    page_size = 5
+    page_size = 2
 
 class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
     pass
@@ -33,6 +33,7 @@ class PostViewSet(LikedMixin, viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated, IsPostAuthor]
     filterset_class = TagFilter
+    pagination_class = MyPaginations
 
     def get_serializer_context(self):
         return {'request': self.request}
